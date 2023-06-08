@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/homebackground"
+    android:fitsSystemWindows="false"
+    android:id="@+id/root_layout"
+    tools:context=".Activities.SplashActivity">
+
+    <LinearLayout
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerInParent="true">
+        <TextView
+            android:id="@+id/Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SOIL"
+            android:textAllCaps="true"
+            android:textColor="#E3ECFA"
+            android:textSize="70sp"/>
+
+        <TextView
+            android:id="@+id/HomeSloganText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Get a Loan Intsantly at a low interest rate"
+            android:textColor="@color/softGray"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+    </LinearLayout>
+</RelativeLayout>

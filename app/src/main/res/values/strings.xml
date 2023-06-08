@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Soil</string>
+
+    <string-array name="time">
+        <item>Select one</item>
+        <item>Applicant</item>
+        <item>National ID (front)</item>
+        <item>National ID (back)</item>
+        <item>Applicant\'s Home</item>
+        <item>Collateral (Ownership Agreement)</item>
+        <item>Collateral</item>
+        <item>Guarantor</item>
+    </string-array>
+
+
+</resources>
