@@ -93,4 +93,108 @@
 
     </LinearLayout>
 
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp">
+
+        <TableRow
+            android:background="@color/baby_blue">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textColor="@color/black"
+                android:padding="10sp"
+                android:textSize="12sp"
+                android:layout_weight="6"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Coordinates"
+                android:textColor="@color/black"
+                android:padding="10sp"
+                android:textSize="12sp"
+                android:layout_weight="6"
+                android:gravity="center_horizontal"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Applicant's Home"
+                android:textColor="@color/black"
+                android:padding="10sp"
+                android:textSize="12sp"
+                android:layout_weight="6"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/home_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:padding="10sp"
+                android:textSize="12sp"
+                android:layout_weight="6"
+                android:gravity="center_horizontal"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Collateral Location"
+                android:textColor="@color/black"
+                android:padding="10sp"
+                android:textSize="12sp"
+                android:layout_weight="6"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/home_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:padding="10sp"
+                android:textSize="12sp"
+                android:layout_weight="6"
+                android:gravity="center_horizontal"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Guarantor's Home"
+                android:textColor="@color/black"
+                android:padding="10sp"
+                android:textSize="12sp"
+                android:layout_weight="6"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/home_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:padding="10sp"
+                android:textSize="12sp"
+                android:layout_weight="6"
+                android:gravity="center_horizontal"/>
+
+        </TableRow>
+
+    </TableLayout>
+
 </LinearLayout>

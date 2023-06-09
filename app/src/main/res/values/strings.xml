@@ -26,4 +26,11 @@
         <item>Land Agreement</item>
     </string-array>
 
+    <string-array name="location">
+        <item>Select one</item>
+        <item>Applicant\'s Home</item>
+        <item>Applicant\'s Collateral</item>
+        <item>Guarantor\'s Home</item>
+    </string-array>
+
 </resources>

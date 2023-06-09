@@ -1,6 +1,9 @@
 package com.ug.air.sproutofinnovateapp.Fragments;
 
 import static com.ug.air.sproutofinnovateapp.Activities.LoansActivity.SHARED_PREFS;
+import static com.ug.air.sproutofinnovateapp.Activities.MapActivity.GEO_POINT_1;
+import static com.ug.air.sproutofinnovateapp.Activities.MapActivity.GEO_POINT_2;
+import static com.ug.air.sproutofinnovateapp.Activities.MapActivity.GEO_POINT_3;
 import static com.ug.air.sproutofinnovateapp.Fragments.Applicant.APP_1;
 import static com.ug.air.sproutofinnovateapp.Fragments.Collateral.APP_2;
 import static com.ug.air.sproutofinnovateapp.Fragments.Guarantor.APP_3;
@@ -17,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ug.air.sproutofinnovateapp.R;
 
@@ -25,6 +29,7 @@ public class Home extends Fragment {
 
     View view;
     Button btnApplicant, btnCollateral, btnGuarantor;
+    TextView home1, home2, home3;
     ImageView imageView1, imageView2, imageView3;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -45,6 +50,11 @@ public class Home extends Fragment {
         imageView1 = view.findViewById(R.id.icon_1);
         imageView2 = view.findViewById(R.id.icon_2);
         imageView3 = view.findViewById(R.id.icon_3);
+
+        home1 = view.findViewById(R.id.home_1);
+        home2 = view.findViewById(R.id.home_2);
+        home3 = view.findViewById(R.id.home_3);
+
 
         btnApplicant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +100,10 @@ public class Home extends Fragment {
         if (app_3.equals("yes")){
             imageView3.setVisibility(View.VISIBLE);
         }
+
+        home1.setText(sharedPreferences.getString(GEO_POINT_1, ""));
+        home2.setText(sharedPreferences.getString(GEO_POINT_2, ""));
+        home3.setText(sharedPreferences.getString(GEO_POINT_3, ""));
 
         return view;
     }
