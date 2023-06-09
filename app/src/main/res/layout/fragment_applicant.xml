@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.Applicant"
+    android:orientation="vertical">
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+      <ScrollView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginEnd="0dp"
+          android:layout_marginBottom="10dp"
+          android:fadeScrollbars="true"
+          android:padding="10dp"
+          android:scrollbars="none">
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_margin="10dp"
+             android:gravity="center"
+             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Please provide details about the applicant's home of residence"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:orientation="horizontal"
+                   android:padding="10dp">
+
+                  <EditText
+                      android:id="@+id/period"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/primaryedittext"
+                      android:drawablePadding="10dp"
+                      android:hint="Period of stay"
+                      android:textColor="@color/blue_main"
+                      android:textColorHint="#A0A2A3"
+                      android:textSize="14sp" />
+
+               </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:orientation="horizontal"
+                   android:padding="10dp">
+
+                  <EditText
+                      android:id="@+id/district"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/primaryedittext"
+                      android:drawablePadding="10dp"
+                      android:hint="District"
+                      android:textColor="@color/blue_main"
+                      android:textColorHint="#A0A2A3"
+                      android:textSize="14sp" />
+
+               </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:orientation="horizontal"
+                   android:padding="10dp">
+
+                  <EditText
+                      android:id="@+id/subcounty"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/primaryedittext"
+                      android:drawablePadding="10dp"
+                      android:hint="Subcounty"
+                      android:textColor="@color/blue_main"
+                      android:textColorHint="#A0A2A3"
+                      android:textSize="14sp" />
+
+               </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:orientation="horizontal"
+                   android:padding="10dp">
+
+                  <EditText
+                      android:id="@+id/county"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/primaryedittext"
+                      android:drawablePadding="10dp"
+                      android:hint="County"
+                      android:textColor="@color/blue_main"
+                      android:textColorHint="#A0A2A3"
+                      android:textSize="14sp" />
+
+               </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:orientation="horizontal"
+                   android:padding="10dp">
+
+                  <EditText
+                      android:id="@+id/parish"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/primaryedittext"
+                      android:drawablePadding="10dp"
+                      android:hint="Parish"
+                      android:textColor="@color/blue_main"
+                      android:textColorHint="#A0A2A3"
+                      android:textSize="14sp" />
+
+               </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:orientation="horizontal"
+                   android:padding="10dp">
+
+                  <EditText
+                      android:id="@+id/village"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:background="@drawable/primaryedittext"
+                      android:drawablePadding="10dp"
+                      android:hint="Village"
+                      android:textColor="@color/blue_main"
+                      android:textColorHint="#A0A2A3"
+                      android:textSize="14sp" />
+
+               </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+             <Button
+                 android:id="@+id/save"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="20dp"
+                 android:background="@drawable/priamrybtn"
+                 android:text="Save and Continue"
+                 android:textAllCaps="false"
+                 android:textColor="@color/white" />
+
+         </LinearLayout>
+
+      </ScrollView>
+
+   </RelativeLayout>
+
+</LinearLayout>

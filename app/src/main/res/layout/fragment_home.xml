@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.Home"
+    android:orientation="vertical"
+    android:layout_marginTop="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <Button
+            android:id="@+id/applicant"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".8"
+            android:background="@drawable/priamrybtn"
+            android:text="Applicant's Residence"
+            android:textColor="@color/white"
+            android:layout_marginEnd="20dp"
+            android:textAllCaps="false"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight=".2"
+            android:layout_height="30dp"
+            android:id="@+id/icon_1"
+            android:src="@drawable/check"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <Button
+            android:id="@+id/collateral"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".8"
+            android:background="@drawable/priamrybtn"
+            android:text="Applicant's Collateral"
+            android:textColor="@color/white"
+            android:layout_marginEnd="20dp"
+            android:textAllCaps="false"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight=".2"
+            android:layout_height="30dp"
+            android:id="@+id/icon_2"
+            android:src="@drawable/check"
+            android:visibility="gone"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <Button
+            android:id="@+id/guarantor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".8"
+            android:background="@drawable/priamrybtn"
+            android:text="Guarantor"
+            android:textColor="@color/white"
+            android:layout_marginEnd="20dp"
+            android:textAllCaps="false"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight=".2"
+            android:layout_height="30dp"
+            android:id="@+id/icon_3"
+            android:src="@drawable/check"
+            android:visibility="gone"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+
+</LinearLayout>

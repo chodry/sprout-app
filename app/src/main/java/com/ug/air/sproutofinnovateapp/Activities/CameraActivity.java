@@ -1,12 +1,16 @@
 package com.ug.air.sproutofinnovateapp.Activities;
 
+import static com.ug.air.sproutofinnovateapp.Activities.LoansActivity.SHARED_PREFS;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,11 +26,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.ug.air.sproutofinnovateapp.Adapters.ImageAdapter;
 import com.ug.air.sproutofinnovateapp.Models.Image;
 import com.ug.air.sproutofinnovateapp.R;
 
 import java.io.File;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,13 +43,17 @@ public class CameraActivity extends AppCompatActivity implements AdapterView.OnI
 
     Spinner spinner;
     ArrayAdapter<CharSequence> adapter;
-    String camera;
+    String camera, images;
     Button btnCamera;
+    ImageView btnBack;
     GridView gridView;
     String currentPhotoPath;
     public static final int CAMERA_REQUEST_CODE = 102;
     List<Image> imagesList;
     ImageAdapter imageAdapter;
+    public static final String IMAGES = "images";
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +62,28 @@ public class CameraActivity extends AppCompatActivity implements AdapterView.OnI
 
         spinner = findViewById(R.id.time);
         btnCamera = findViewById(R.id.camera);
+        btnBack = findViewById(R.id.back);
         gridView = findViewById(R.id.grid);
+
+        sharedPreferences = getApplicationContext().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         adapter = ArrayAdapter.createFromResource(this, R.array.time, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
-        imagesList = new ArrayList<>();
-//        imagesList.add(new Image("Applicant", "/storage/emulated/0/Android/data/com.ug.air.sproutofinnovateapp/files/Pictures/Sprout/Sprout_20230608_144901.jpg"));
-//        imagesList.add(new Image("Applicant's Home", "/storage/emulated/0/Android/data/com.ug.air.sproutofinnovateapp/files/Pictures/Sprout/Sprout_20230608_144913.jpg"));
-//        imagesList.add(new Image("National ID (back)", "/storage/emulated/0/Android/data/com.ug.air.sproutofinnovateapp/files/Pictures/Sprout/Sprout_20230608_144934.jpg"));
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CameraActivity.this, LoanActivity.class));
+            }
+        });
 
-        imageAdapter = new ImageAdapter(this, R.layout.grid_layout, imagesList);
-        gridView.setAdapter(imageAdapter);
+        imagesList = new ArrayList<>();
+
+        loadData();
+        UpdateViews();
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -80,12 +99,12 @@ public class CameraActivity extends AppCompatActivity implements AdapterView.OnI
                 dispatchTakePictureIntent();
             }
         });
+
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         camera = parent.getItemAtPosition(position).toString();
-        Toast.makeText(this, camera, Toast.LENGTH_SHORT).show();
         if (camera.equals("Select one")) {
             btnCamera.setVisibility(View.GONE);
         }
@@ -116,6 +135,15 @@ public class CameraActivity extends AppCompatActivity implements AdapterView.OnI
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                imagesList.remove(image);
+                imageAdapter.notifyDataSetChanged();
+                gridView.setAdapter(imageAdapter);
+
+                Gson gson = new Gson();
+                images = gson.toJson(imagesList);
+                editor.putString(IMAGES, images);
+                editor.apply();
+
                 dialog.dismiss();
             }
         });
@@ -171,9 +199,6 @@ public class CameraActivity extends AppCompatActivity implements AdapterView.OnI
         if(requestCode == CAMERA_REQUEST_CODE){
             if(resultCode == Activity.RESULT_OK){
                 File f = new File(currentPhotoPath);
-//                imageView.setVisibility(View.VISIBLE);
-//                imageView.setImageURI(Uri.fromFile(f));
-//                linearLayout.setVisibility(View.GONE);
                 Log.d("tag", "Absolute URL is " + Uri.fromFile(f));
                 Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                 Uri contentUri = Uri.fromFile(f);
@@ -187,7 +212,30 @@ public class CameraActivity extends AppCompatActivity implements AdapterView.OnI
                 imageAdapter.notifyDataSetChanged();
                 gridView.setAdapter(imageAdapter);
 
+                Gson gson = new Gson();
+                images = gson.toJson(imagesList);
+                editor.putString(IMAGES, images);
+                editor.apply();
+
             }
         }
     }
+
+    private void loadData() {
+
+        Gson gson = new Gson();
+        images = sharedPreferences.getString(IMAGES, null);
+        Type type = new TypeToken<ArrayList<Image>>() {}.getType();
+        imagesList = gson.fromJson(images, type);
+        if (imagesList == null) {
+            imagesList = new ArrayList<>();
+        }
+
+    }
+
+    private void UpdateViews() {
+        imageAdapter = new ImageAdapter(this, R.layout.grid_layout, imagesList);
+        gridView.setAdapter(imageAdapter);
+    }
+
 }

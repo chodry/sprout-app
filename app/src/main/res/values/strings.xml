@@ -12,5 +12,18 @@
         <item>Guarantor</item>
     </string-array>
 
+    <string-array name="collateral">
+        <item>Select one</item>
+        <item>Undeveloped land</item>
+        <item>Developed land</item>
+        <item>Motorcycle</item>
+        <item>Motor vehicle</item>
+    </string-array>
+
+    <string-array name="type">
+        <item>Select one</item>
+        <item>Land Title</item>
+        <item>Land Agreement</item>
+    </string-array>
 
 </resources>

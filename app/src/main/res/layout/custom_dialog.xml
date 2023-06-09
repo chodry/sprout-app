@@ -41,10 +41,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Close"
+            android:text="Delete"
             android:id="@+id/close"
             android:textColor="@color/white"
-            android:background="#99C5B6"/>
+            android:background="@color/gray_2"/>
 
     </LinearLayout>
 

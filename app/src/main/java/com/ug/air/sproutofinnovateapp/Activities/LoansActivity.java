@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,8 +16,10 @@ import android.widget.Toast;
 import com.ug.air.sproutofinnovateapp.APIs.ApiClient;
 import com.ug.air.sproutofinnovateapp.APIs.JsonPlaceHolder;
 import com.ug.air.sproutofinnovateapp.Adapters.LoanAdapter;
+import com.ug.air.sproutofinnovateapp.BuildConfig;
 import com.ug.air.sproutofinnovateapp.Models.Application;
 import com.ug.air.sproutofinnovateapp.R;
+import com.ug.air.sproutofinnovateapp.Utils.SharedPreferencesUtils;
 import com.ug.air.sproutofinnovateapp.Utils.Token;
 
 import org.json.JSONException;
@@ -25,6 +29,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,9 +42,22 @@ public class LoansActivity extends AppCompatActivity {
     File[] contents;
     List<Application> applicationList;
     LoanAdapter loanAdapter;
-    String tokenX, check;
+    String tokenX, check, shared_prefs;
     JsonPlaceHolder jsonPlaceHolder;
     ImageView imageView;
+    SharedPreferences sharedPreferences, sharedPreferencesX;
+    SharedPreferences.Editor editor, editorX;
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String LOAN_ID = "loan_id";
+    public static final String FIRST_NAME = "first_name";
+    public static final String LAST_NAME = "last_name";
+    public static final String GUARANTOR_NAME = "guarantor_name";
+    public static final String VILLAGE = "village";
+    public static final String SUBCOUNTY = "subcounty";
+    public static final String COUNTY = "county";
+    public static final String PARISH = "parish";
+    public static final String DISTRICT = "district";
+    public static final String COLLATERAL = "collateral";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,14 +79,48 @@ public class LoansActivity extends AppCompatActivity {
         loanAdapter.setOnItemClickListener(new LoanAdapter.OnItemClickListener() {
             @Override
             public void onEditClick(int position) {
-                String name = applicationList.get(position).getFirst_name() + " " + applicationList.get(position).getLast_name();
-                int loan_id = applicationList.get(position).getId();
-                String id = String.valueOf(loan_id);
-                Intent intent = new Intent(LoansActivity.this, LoanActivity.class);
-                intent.putExtra("name", name);
-                intent.putExtra("loan_id", id);
-                intent.putExtra("fragment", "home");
-                startActivity(intent);
+                String loan_id = String.valueOf(applicationList.get(position).getId());
+                String filename = "loan_" + loan_id + "_sprout";
+
+                boolean exists = SharedPreferencesUtils.isSharedPreferencesFileExists(getApplicationContext(), filename);
+
+                sharedPreferences = getApplicationContext().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+                editor = sharedPreferences.edit();
+
+                if (exists){
+
+                    sharedPreferencesX = getApplicationContext().getSharedPreferences(filename, Context.MODE_PRIVATE);
+                    editorX = sharedPreferencesX.edit();
+
+                    Map<String, ?> all = sharedPreferencesX.getAll();
+                    for (Map.Entry<String, ?> x : all.entrySet()) {
+                        if (x.getValue().getClass().equals(String.class))  editor.putString(x.getKey(),  (String)x.getValue());
+                    }
+
+                    editor.commit();
+                    editorX.clear();
+                    editorX.commit();
+
+                }
+                else {
+
+                    editor.putString(LOAN_ID, loan_id);
+                    editor.putString(FIRST_NAME, applicationList.get(position).getFirst_name());
+                    editor.putString(LAST_NAME, applicationList.get(position).getLast_name());
+                    editor.putString(VILLAGE, applicationList.get(position).getVillage());
+                    editor.putString(PARISH, applicationList.get(position).getParish());
+                    editor.putString(COUNTY, applicationList.get(position).getCounty());
+                    editor.putString(SUBCOUNTY, applicationList.get(position).getSubcounty());
+                    editor.putString(DISTRICT, applicationList.get(position).getDistrict());
+                    editor.putString(COLLATERAL, applicationList.get(position).getCollateral());
+                    editor.putString(GUARANTOR_NAME, applicationList.get(position).getGuarantor());
+
+                    editor.apply();
+
+                }
+
+                startActivity(new Intent(LoansActivity.this, LoanActivity.class));
+
             }
         });
 
@@ -126,6 +178,8 @@ public class LoansActivity extends AppCompatActivity {
                         String guarantor_telephone_number = "";
                         String guarantor_relationship = "";
                         String time_line = "";
+                        String parish = "";
+                        String county = "";
 
                         first_name += application.getFirst_name();
                         last_name += application.getLast_name();
@@ -146,10 +200,12 @@ public class LoansActivity extends AppCompatActivity {
                         guarantor += application.getGuarantor();
                         guarantor_telephone_number += application.getGuarantor_telephone_number();
                         time_line += application.getTime_line();
+                        county += application.getCounty();
+                        parish += application.getParish();
 
 
                         Application application1 = new Application(id, first_name, last_name, age,
-                                gender, telephone_number_1, telephone_number_2, village, subcounty,
+                                gender, telephone_number_1, telephone_number_2, village, subcounty, county, parish,
                                 district, amount, duration_of_payment, collateral, source_of_income,
                                 guarantor, interest, guarantor_telephone_number, guarantor_relationship, time_line);
 

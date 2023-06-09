@@ -11,6 +11,8 @@ public class Application {
      String telephone_number_2;
      String village;
      String subcounty;
+    String county;
+    String parish;
      String district;
      int amount;
      int duration_of_payment;
@@ -22,7 +24,7 @@ public class Application {
      String guarantor_relationship;
      String time_line;
 
-    public Application(int id, String first_name, String last_name, int age, String gender, String telephone_number_1, String telephone_number_2, String village, String subcounty, String district, int amount, int duration_of_payment, String collateral, String source_of_income, String guarantor, int interest, String guarantor_telephone_number, String guarantor_relationship, String time_line) {
+    public Application(int id, String first_name, String last_name, int age, String gender, String telephone_number_1, String telephone_number_2, String village, String subcounty, String county, String parish, String district, int amount, int duration_of_payment, String collateral, String source_of_income, String guarantor, int interest, String guarantor_telephone_number, String guarantor_relationship, String time_line) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -32,6 +34,8 @@ public class Application {
         this.telephone_number_2 = telephone_number_2;
         this.village = village;
         this.subcounty = subcounty;
+        this.county = county;
+        this.parish = parish;
         this.district = district;
         this.amount = amount;
         this.duration_of_payment = duration_of_payment;
@@ -118,5 +122,13 @@ public class Application {
 
     public String getTime_line() {
         return time_line;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public String getParish() {
+        return parish;
     }
 }
