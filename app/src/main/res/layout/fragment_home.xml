@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.Home"
     android:orientation="vertical"
     android:layout_marginTop="10dp"
@@ -20,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".8"
-            android:background="@drawable/priamrybtn"
+            android:background="@drawable/secondarybtn"
             android:text="Applicant's Residence"
             android:textColor="@color/white"
             android:layout_marginEnd="20dp"
@@ -59,7 +60,7 @@
             android:layout_weight=".2"
             android:layout_height="30dp"
             android:id="@+id/icon_2"
-            android:src="@drawable/check"
+            android:src="@drawable/check2"
             android:visibility="gone"
             android:layout_gravity="center_vertical"/>
 
@@ -76,7 +77,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".8"
-            android:background="@drawable/priamrybtn"
+            android:background="@drawable/secondarybtn"
             android:text="Guarantor"
             android:textColor="@color/white"
             android:layout_marginEnd="20dp"
@@ -196,5 +197,35 @@
         </TableRow>
 
     </TableLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="40dp"
+            android:text="Submit Data"
+            android:textColor="@color/white"
+            android:background="@drawable/priamrybtn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/submit"
+            app:layout_constraintEnd_toEndOf="@+id/submit"
+            app:layout_constraintTop_toTopOf="@+id/submit" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

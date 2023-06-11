@@ -86,7 +86,8 @@ public class HomeActivity extends AppCompatActivity {
         cardView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, FormsActivity.class));
+//                startActivity(new Intent(HomeActivity.this, FormsActivity.class));
+                Toast.makeText(HomeActivity.this, "You can submit one form at a time from the Loans section", Toast.LENGTH_SHORT).show();
             }
         });
 

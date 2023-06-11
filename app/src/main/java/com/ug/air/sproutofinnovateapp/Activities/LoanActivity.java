@@ -110,7 +110,7 @@ public class LoanActivity extends AppCompatActivity {
 
     private void saveFile() {
         Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String formattedDate = df.format(currentTime);
 
         editor.putString(DATE, formattedDate);

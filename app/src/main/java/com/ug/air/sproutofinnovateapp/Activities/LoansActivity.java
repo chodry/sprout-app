@@ -70,6 +70,16 @@ public class LoansActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         imageView = findViewById(R.id.back);
 
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            String loan = extras.getString("loan_id");
+            File fileX = new File("/data/data/" + BuildConfig.APPLICATION_ID + "/shared_prefs/loan_" + loan + "_sprout.xml");
+            if (fileX.exists()){
+                fileX.delete();
+            }
+        }
+
         applicationList = new ArrayList<>();
 
         loanAdapter = new LoanAdapter(this, applicationList);
