@@ -1,5 +1,7 @@
 package com.ug.air.sproutofinnovateapp.Activities;
 
+import static com.ug.air.sproutofinnovateapp.Fragments.Applicant.LOCATION_1;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,11 +15,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.ug.air.sproutofinnovateapp.APIs.ApiClient;
 import com.ug.air.sproutofinnovateapp.APIs.JsonPlaceHolder;
 import com.ug.air.sproutofinnovateapp.Adapters.LoanAdapter;
 import com.ug.air.sproutofinnovateapp.BuildConfig;
+import com.ug.air.sproutofinnovateapp.Models.Applicant;
 import com.ug.air.sproutofinnovateapp.Models.Application;
+import com.ug.air.sproutofinnovateapp.Models.Location;
 import com.ug.air.sproutofinnovateapp.R;
 import com.ug.air.sproutofinnovateapp.Utils.SharedPreferencesUtils;
 import com.ug.air.sproutofinnovateapp.Utils.Token;
@@ -58,6 +63,7 @@ public class LoansActivity extends AppCompatActivity {
     public static final String PARISH = "parish";
     public static final String DISTRICT = "district";
     public static final String COLLATERAL = "collateral";
+    Location location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,15 +121,21 @@ public class LoansActivity extends AppCompatActivity {
                 else {
 
                     editor.putString(LOAN_ID, loan_id);
-                    editor.putString(FIRST_NAME, applicationList.get(position).getFirst_name());
-                    editor.putString(LAST_NAME, applicationList.get(position).getLast_name());
-                    editor.putString(VILLAGE, applicationList.get(position).getVillage());
-                    editor.putString(PARISH, applicationList.get(position).getParish());
-                    editor.putString(COUNTY, applicationList.get(position).getCounty());
-                    editor.putString(SUBCOUNTY, applicationList.get(position).getSubcounty());
-                    editor.putString(DISTRICT, applicationList.get(position).getDistrict());
+                    editor.putString(FIRST_NAME, applicationList.get(position).getApplicant().getFirst_name());
+                    editor.putString(LAST_NAME, applicationList.get(position).getApplicant().getLast_name());
                     editor.putString(COLLATERAL, applicationList.get(position).getCollateral());
                     editor.putString(GUARANTOR_NAME, applicationList.get(position).getGuarantor());
+
+                    String village = applicationList.get(position).getLocation().getVillage();
+                    String parish = applicationList.get(position).getLocation().getParish();
+                    String county = applicationList.get(position).getLocation().getCounty();
+                    String subcounty = applicationList.get(position).getLocation().getSubcounty();
+                    String district = applicationList.get(position).getLocation().getDistrict();
+
+                    location = new Location(village, subcounty, county, parish, district, "", "", "applicant");
+                    Gson gson = new Gson();
+                    String locate = gson.toJson(location);
+                    editor.putString(LOCATION_1, locate);
 
                     editor.apply();
 
@@ -173,6 +185,7 @@ public class LoansActivity extends AppCompatActivity {
                         String first_name = "";
                         String last_name = "";
                         int age = 0;
+                        int income = 0;
                         String gender = "";
                         String telephone_number_1 = "";
                         String telephone_number_2 = "";
@@ -190,17 +203,18 @@ public class LoansActivity extends AppCompatActivity {
                         String time_line = "";
                         String parish = "";
                         String county = "";
+                        String weekly = "";
 
-                        first_name += application.getFirst_name();
-                        last_name += application.getLast_name();
+                        first_name += application.getApplicant().getFirst_name();
+                        last_name += application.getApplicant().getLast_name();
                         id += application.getId();
-                        age += application.getAge();
-                        gender += application.getGender();
-                        telephone_number_1 += application.getTelephone_number_1();
-                        telephone_number_2 += application.getTelephone_number_2();
-                        village += application.getVillage();
-                        subcounty += application.getSubcounty();
-                        district += application.getDistrict();
+                        age += application.getApplicant().getAge();
+                        gender += application.getApplicant().getGender();
+                        telephone_number_1 += application.getApplicant().getTelephone_number_1();
+                        telephone_number_2 += application.getApplicant().getTelephone_number_2();
+                        village += application.getLocation().getVillage();
+                        subcounty += application.getLocation().getSubcounty();
+                        district += application.getLocation().getDistrict();
                         amount += application.getAmount();
                         interest += application.getInterest();
                         duration_of_payment += application.getDuration_of_payment();
@@ -210,14 +224,17 @@ public class LoansActivity extends AppCompatActivity {
                         guarantor += application.getGuarantor();
                         guarantor_telephone_number += application.getGuarantor_telephone_number();
                         time_line += application.getTime_line();
-                        county += application.getCounty();
-                        parish += application.getParish();
+                        county += application.getLocation().getCounty();
+                        parish += application.getLocation().getParish();
+                        weekly += application.getWeekly_or_monthly();
+                        income += application.getIncome();
 
+                        Location location = new Location(village, subcounty, county, parish, district, "", "", "");
+                        Applicant applicant = new Applicant(first_name, last_name, age, gender, telephone_number_1, telephone_number_2);
 
-                        Application application1 = new Application(id, first_name, last_name, age,
-                                gender, telephone_number_1, telephone_number_2, village, subcounty, county, parish,
-                                district, amount, duration_of_payment, collateral, source_of_income,
-                                guarantor, interest, guarantor_telephone_number, guarantor_relationship, time_line);
+                        Application application1 = new Application(id, amount, duration_of_payment, collateral, source_of_income,
+                                income, weekly, guarantor, interest, guarantor_telephone_number, guarantor_relationship,
+                                time_line, applicant, location);
 
                         applicationList.add(application1);
                     }

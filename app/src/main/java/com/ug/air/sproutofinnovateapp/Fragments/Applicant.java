@@ -22,18 +22,28 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.ug.air.sproutofinnovateapp.Models.Image;
+import com.ug.air.sproutofinnovateapp.Models.Location;
 import com.ug.air.sproutofinnovateapp.R;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Applicant extends Fragment {
 
     View view;
     Button btnSave;
     EditText etPeriod, etDistrict, etSubCounty, etVillage, etCounty, etParish;
-    String peroid, district, subcounty, village, parish, county, app_1;
-    public static final String PERIOD_1 = "period_of_stay";
+    String peroid, district, subcounty, village, parish, county, locate, geo_point;
     public static final String APP_1 = "app_1";
+    public static final String LOCATION_1 = "location_1";
+    int index;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    Location location;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,12 +87,11 @@ public class Applicant extends Fragment {
     }
 
     private void saveData() {
-        editor.putString(PERIOD_1, peroid);
-        editor.putString(VILLAGE, village);
-        editor.putString(SUBCOUNTY, subcounty);
-        editor.putString(DISTRICT, district);
-        editor.putString(COUNTY, county);
-        editor.putString(PARISH, parish);
+
+        location = new Location(village, subcounty, county, parish, district, peroid, geo_point, "applicant");
+        Gson gson = new Gson();
+        locate = gson.toJson(location);
+        editor.putString(LOCATION_1, locate);
         editor.putString(APP_1, "yes");
         editor.apply();
 
@@ -94,20 +103,19 @@ public class Applicant extends Fragment {
     }
 
     private void loadData() {
-        peroid = sharedPreferences.getString(PERIOD_1, "");
-        village = sharedPreferences.getString(VILLAGE, "");
-        subcounty = sharedPreferences.getString(SUBCOUNTY, "");
-        district = sharedPreferences.getString(DISTRICT, "");
-        county = sharedPreferences.getString(COUNTY, "");
-        parish = sharedPreferences.getString(PARISH, "");
+        Gson gson = new Gson();
+        locate = sharedPreferences.getString(LOCATION_1, null);
+        location = gson.fromJson(locate, Location.class);
+
     }
 
     private void UpdateViews() {
-        etPeriod.setText(peroid);
-        etVillage.setText(village);
-        etSubCounty.setText(subcounty);
-        etDistrict.setText(district);
-        etCounty.setText(county);
-        etParish.setText(parish);
+        geo_point = location.getGeo_point();
+        etPeriod.setText(location.getPeriod_of_stay());
+        etVillage.setText(location.getVillage());
+        etSubCounty.setText(location.getSubcounty());
+        etDistrict.setText(location.getDistrict());
+        etCounty.setText(location.getCounty());
+        etParish.setText(location.getParish());
     }
 }

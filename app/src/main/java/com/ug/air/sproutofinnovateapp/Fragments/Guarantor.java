@@ -17,7 +17,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.ug.air.sproutofinnovateapp.Models.Location;
 import com.ug.air.sproutofinnovateapp.R;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Guarantor extends Fragment {
@@ -25,16 +32,14 @@ public class Guarantor extends Fragment {
    View view;
     Button btnSave;
     EditText etPeriod, etDistrict, etSubCounty, etVillage, etCounty, etParish;
-    String peroid, district, subcounty, village, parish, county, app_3;
-    public static final String DISTRICT_3 = "district_3";
-    public static final String PERIOD_3 = "period_of_stay_3";
-    public static final String SUBCOUNTY_3 = "subcounty_3";
-    public static final String VILLAGE_3 = "village_3";
-    public static final String PARISH_3 = "parish_3";
-    public static final String COUNTY_3 = "county_3";
+    String peroid, district, subcounty, village, parish, county, app_3, locate, geo_point;
+    int index;
+    List<Location> locationList;
     public static final String APP_3 = "app_3";
+    public static final String LOCATION_3 = "location_3";
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    Location location;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,11 +55,12 @@ public class Guarantor extends Fragment {
         etSubCounty = view.findViewById(R.id.subcounty);
         etDistrict = view.findViewById(R.id.district);
 
+        locationList = new ArrayList<>();
+
         sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         loadData();
-        UpdateViews();
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,12 +84,12 @@ public class Guarantor extends Fragment {
     }
 
     private void saveData() {
-        editor.putString(PERIOD_3, peroid);
-        editor.putString(VILLAGE_3, village);
-        editor.putString(SUBCOUNTY_3, subcounty);
-        editor.putString(DISTRICT_3, district);
-        editor.putString(COUNTY_3, county);
-        editor.putString(PARISH_3, parish);
+
+        location = new Location(village, subcounty, county, parish, district, peroid, geo_point, "guarantor");
+        Gson gson = new Gson();
+        locate = gson.toJson(location);
+        editor.putString(LOCATION_3, locate);
+
         editor.putString(APP_3, "yes");
         editor.apply();
 
@@ -94,21 +100,19 @@ public class Guarantor extends Fragment {
     }
 
     private void loadData() {
-        peroid = sharedPreferences.getString(PERIOD_3, "");
-        village = sharedPreferences.getString(VILLAGE_3, "");
-        subcounty = sharedPreferences.getString(SUBCOUNTY_3, "");
-        district = sharedPreferences.getString(DISTRICT_3, "");
-        county = sharedPreferences.getString(COUNTY_3, "");
-        parish = sharedPreferences.getString(PARISH_3, "");
-    }
 
-    private void UpdateViews() {
-        etPeriod.setText(peroid);
-        etVillage.setText(village);
-        etSubCounty.setText(subcounty);
-        etDistrict.setText(district);
-        etCounty.setText(county);
-        etParish.setText(parish);
+        Gson gson = new Gson();
+        locate = sharedPreferences.getString(LOCATION_3, null);
+        location = gson.fromJson(locate, Location.class);
+        if (location != null){
+            geo_point = location.getGeo_point();
+            etPeriod.setText(location.getPeriod_of_stay());
+            etVillage.setText(location.getVillage());
+            etSubCounty.setText(location.getSubcounty());
+            etDistrict.setText(location.getDistrict());
+            etCounty.setText(location.getCounty());
+            etParish.setText(location.getParish());
+        }
     }
 
 }

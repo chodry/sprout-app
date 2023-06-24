@@ -136,7 +136,7 @@ public class FormsActivity extends AppCompatActivity {
 //                        if (!name.equals("sharedPrefs.xml") && !name.equals("token_file.xml")){
 //                            String names = name.replace(".xml", "");
 //                            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(names, MODE_PRIVATE);
-//                            String applicant = sharedPreferences.getString(NAME, "");
+//                            String Applicant = sharedPreferences.getString(NAME, "");
 //                            String daa = sharedPreferences.getString(DATE, "");
 //                            String complete = sharedPreferences.getString(COMPLETE, "");
 //                            if (complete.equals("complete")) {
@@ -147,7 +147,7 @@ public class FormsActivity extends AppCompatActivity {
 //                                    SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
 //                                    String formattedDate = df1.format(date);
 //
-//                                    Appraisal appraisal = new Appraisal(applicant, formattedDate);
+//                                    Appraisal appraisal = new Appraisal(Applicant, formattedDate);
 //                                    appraisalList.add(appraisal);
 //                                } catch (ParseException e) {
 //                                    e.printStackTrace();
@@ -172,7 +172,7 @@ public class FormsActivity extends AppCompatActivity {
 //                        if (!name.equals("sharedPrefs.xml") && !name.equals("token_file.xml")) {
 //                            String names = name.replace(".xml", "");
 //                            SharedPreferences sharedPreferences2 = getSharedPreferences(names, Context.MODE_PRIVATE);
-//                            String applicant = sharedPreferences2.getString(APPLICANT, "");
+//                            String Applicant = sharedPreferences2.getString(APPLICANT, "");
 //                            String home1 = sharedPreferences2.getString(HOME_IMAGE_1, "");
 //                            String home2 = sharedPreferences2.getString(HOME_IMAGE_2, "");
 //                            String guarantor = sharedPreferences2.getString(GUARANTOR, "");
@@ -180,9 +180,9 @@ public class FormsActivity extends AppCompatActivity {
 //                            String guarantor1 = sharedPreferences2.getString(GUARANTOR_IMAGE_1, "");
 //                            String business2 = sharedPreferences2.getString(BUSINESS_IMAGE_2, "");
 //
-//                            if (!applicant.isEmpty()){
+//                            if (!Applicant.isEmpty()){
 //                                ArrayList<String> imageUrls = new ArrayList<>();
-//                                imageUrls.add(applicant);
+//                                imageUrls.add(Applicant);
 //                                imageUrls.add(home1);
 //                                imageUrls.add(home2);
 //                                imageUrls.add(business1);

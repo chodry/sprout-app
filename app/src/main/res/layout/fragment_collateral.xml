@@ -220,7 +220,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/primaryedittext"
                                 android:drawablePadding="10dp"
-                                android:hint="CGombeounty"
+                                android:hint="County"
                                 android:textColor="@color/blue_main"
                                 android:textColorHint="#A0A2A3"
                                 android:textSize="14sp" />

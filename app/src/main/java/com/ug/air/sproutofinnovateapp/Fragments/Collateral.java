@@ -21,28 +21,33 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.ug.air.sproutofinnovateapp.Models.Location;
 import com.ug.air.sproutofinnovateapp.R;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Collateral extends Fragment {
 
     View view;
     Button btnSave;
     EditText etPeriod, etDistrict, etSubCounty, etVillage, etCounty, etParish, etCollateral;
-    String peroid, district, subcounty, village, parish, county, app_3, collateral, loan, type;
+    String peroid, district, subcounty, village, parish, county, app_3, collateral, loan, type, locate, geo_point;
     Spinner spinner1, spinner2;
+    int index;
+    List<Location> locationList;
     LinearLayout linearLayout, linearLayout2;
-    public static final String DISTRICT_2 = "district_2";
-    public static final String PERIOD_2 = "period_of_stay_2";
-    public static final String SUBCOUNTY_2 = "subcounty_2";
-    public static final String VILLAGE_2 = "village_2";
-    public static final String PARISH_2 = "parish_2";
-    public static final String COUNTY_2 = "county_2";
     public static final String APP_2 = "app_2";
+    public static final String LOCATION_2 = "location_2";
     public static final String TYPE = "type";
     public static final String LOAN = "loan";
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ArrayAdapter<CharSequence> adapter1, adapter2;
+    Location location;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,6 +70,8 @@ public class Collateral extends Fragment {
 
         sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
+        locationList = new ArrayList<>();
 
         adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.collateral, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -159,15 +166,20 @@ public class Collateral extends Fragment {
     }
 
     private void saveData() {
-        editor.putString(PERIOD_2, peroid);
-        editor.putString(VILLAGE_2, village);
-        editor.putString(SUBCOUNTY_2, subcounty);
-        editor.putString(DISTRICT_2, district);
-        editor.putString(COUNTY_2, county);
-        editor.putString(PARISH_2, parish);
         editor.putString(LOAN, loan);
         editor.putString(TYPE, type);
         editor.putString(APP_2, "yes");
+
+        if (loan.contains("land")){
+            location = new Location(village, subcounty, county, parish, district, peroid, geo_point, "collateral");
+            Gson gson = new Gson();
+            locate = gson.toJson(location);
+            editor.putString(LOCATION_2, locate);
+        }
+        else {
+            editor.remove(LOCATION_2);
+        }
+
         editor.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
@@ -179,15 +191,12 @@ public class Collateral extends Fragment {
     private void loadData() {
 
         collateral = sharedPreferences.getString(COLLATERAL, "");
-
-        peroid = sharedPreferences.getString(PERIOD_2, "");
-        village = sharedPreferences.getString(VILLAGE_2, "");
-        subcounty = sharedPreferences.getString(SUBCOUNTY_2, "");
-        district = sharedPreferences.getString(DISTRICT_2, "");
-        county = sharedPreferences.getString(COUNTY_2, "");
-        parish = sharedPreferences.getString(PARISH_2, "");
         loan = sharedPreferences.getString(LOAN, "");
         type = sharedPreferences.getString(TYPE, "");
+
+        Gson gson = new Gson();
+        locate = sharedPreferences.getString(LOCATION_2, null);
+        location = gson.fromJson(locate, Location.class);
 
     }
 
@@ -201,12 +210,17 @@ public class Collateral extends Fragment {
             linearLayout.setVisibility(View.VISIBLE);
             spinner2.setSelection(adapter2.getPosition(type));
 
-            etPeriod.setText(peroid);
-            etVillage.setText(village);
-            etSubCounty.setText(subcounty);
-            etDistrict.setText(district);
-            etCounty.setText(county);
-            etParish.setText(parish);
+            if (location != null){
+                geo_point = location.getGeo_point();
+                etPeriod.setText(location.getPeriod_of_stay());
+                etVillage.setText(location.getVillage());
+                etSubCounty.setText(location.getSubcounty());
+                etDistrict.setText(location.getDistrict());
+                etCounty.setText(location.getCounty());
+                etParish.setText(location.getParish());
+            }
+
+
         }else {
             linearLayout2.setVisibility(View.GONE);
             linearLayout.setVisibility(View.GONE);

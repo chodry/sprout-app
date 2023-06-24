@@ -10,222 +10,250 @@
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:orientation="horizontal"
-        android:layout_margin="10dp">
+        android:layout_height="match_parent"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="10dp"
+        android:fadeScrollbars="true"
+        android:padding="10dp"
+        android:scrollbars="none">
 
-        <Button
-            android:id="@+id/applicant"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".8"
-            android:background="@drawable/secondarybtn"
-            android:text="Applicant's Residence"
-            android:textColor="@color/white"
-            android:layout_marginEnd="20dp"
-            android:textAllCaps="false"/>
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight=".2"
-            android:layout_height="30dp"
-            android:id="@+id/icon_1"
-            android:src="@drawable/check"
-            android:layout_gravity="center_vertical"
-            android:visibility="gone"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:orientation="horizontal"
-        android:layout_margin="10dp">
-
-        <Button
-            android:id="@+id/collateral"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".8"
-            android:background="@drawable/priamrybtn"
-            android:text="Applicant's Collateral"
-            android:textColor="@color/white"
-            android:layout_marginEnd="20dp"
-            android:textAllCaps="false"/>
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight=".2"
-            android:layout_height="30dp"
-            android:id="@+id/icon_2"
-            android:src="@drawable/check2"
-            android:visibility="gone"
-            android:layout_gravity="center_vertical"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:orientation="horizontal"
-        android:layout_margin="10dp">
-
-        <Button
-            android:id="@+id/guarantor"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".8"
-            android:background="@drawable/secondarybtn"
-            android:text="Guarantor"
-            android:textColor="@color/white"
-            android:layout_marginEnd="20dp"
-            android:textAllCaps="false"/>
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight=".2"
-            android:layout_height="30dp"
-            android:id="@+id/icon_3"
-            android:src="@drawable/check"
-            android:visibility="gone"
-            android:layout_gravity="center_vertical"/>
-
-    </LinearLayout>
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp">
-
-        <TableRow
-            android:background="@color/baby_blue">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Location"
-                android:textColor="@color/black"
-                android:padding="10sp"
-                android:textSize="12sp"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Coordinates"
-                android:textColor="@color/black"
-                android:padding="10sp"
-                android:textSize="12sp"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"/>
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Applicant's Home"
-                android:textColor="@color/black"
-                android:padding="10sp"
-                android:textSize="12sp"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"/>
-
-            <TextView
-                android:id="@+id/home_1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:padding="10sp"
-                android:textSize="12sp"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"/>
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Collateral Location"
-                android:textColor="@color/black"
-                android:padding="10sp"
-                android:textSize="12sp"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"/>
-
-            <TextView
-                android:id="@+id/home_2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:padding="10sp"
-                android:textSize="12sp"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"/>
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Guarantor's Home"
-                android:textColor="@color/black"
-                android:padding="10sp"
-                android:textSize="12sp"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"/>
-
-            <TextView
-                android:id="@+id/home_3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:padding="10sp"
-                android:textSize="12sp"
-                android:layout_weight="6"
-                android:gravity="center_horizontal"/>
-
-        </TableRow>
-
-    </TableLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/submit"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="40dp"
-            android:text="Submit Data"
-            android:textColor="@color/white"
-            android:background="@drawable/priamrybtn"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="16dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/submit"
-            app:layout_constraintEnd_toEndOf="@+id/submit"
-            app:layout_constraintTop_toTopOf="@+id/submit" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:orientation="horizontal"
+                android:layout_margin="10dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/applicant"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".8"
+                    android:background="@drawable/secondarybtn"
+                    android:text="Applicant's Residence"
+                    android:textColor="@color/white"
+                    android:layout_marginEnd="20dp"
+                    android:textAllCaps="false"/>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight=".2"
+                    android:layout_height="30dp"
+                    android:id="@+id/icon_1"
+                    android:src="@drawable/check"
+                    android:layout_gravity="center_vertical"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:orientation="horizontal"
+                android:layout_margin="10dp">
+
+                <Button
+                    android:id="@+id/collateral"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".8"
+                    android:background="@drawable/priamrybtn"
+                    android:text="Applicant's Collateral"
+                    android:textColor="@color/white"
+                    android:layout_marginEnd="20dp"
+                    android:textAllCaps="false"/>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight=".2"
+                    android:layout_height="30dp"
+                    android:id="@+id/icon_2"
+                    android:src="@drawable/check2"
+                    android:visibility="gone"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:orientation="horizontal"
+                android:layout_margin="10dp">
+
+                <Button
+                    android:id="@+id/guarantor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".8"
+                    android:background="@drawable/secondarybtn"
+                    android:text="Guarantor"
+                    android:textColor="@color/white"
+                    android:layout_marginEnd="20dp"
+                    android:textAllCaps="false"/>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight=".2"
+                    android:layout_height="30dp"
+                    android:id="@+id/icon_3"
+                    android:src="@drawable/check"
+                    android:visibility="gone"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp">
+
+                <TableRow
+                    android:background="@color/baby_blue">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Location"
+                        android:textColor="@color/black"
+                        android:padding="10sp"
+                        android:textSize="12sp"
+                        android:layout_weight="6"
+                        android:gravity="center_horizontal"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Coordinates"
+                        android:textColor="@color/black"
+                        android:padding="10sp"
+                        android:textSize="12sp"
+                        android:layout_weight="6"
+                        android:gravity="center_horizontal"/>
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Applicant's Home"
+                        android:textColor="@color/black"
+                        android:padding="10sp"
+                        android:textSize="12sp"
+                        android:layout_weight="6"
+                        android:gravity="center_horizontal"/>
+
+                    <TextView
+                        android:id="@+id/home_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:padding="10sp"
+                        android:textSize="12sp"
+                        android:layout_weight="6"
+                        android:gravity="center_horizontal"/>
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Collateral Location"
+                        android:textColor="@color/black"
+                        android:padding="10sp"
+                        android:textSize="12sp"
+                        android:layout_weight="6"
+                        android:gravity="center_horizontal"/>
+
+                    <TextView
+                        android:id="@+id/home_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:padding="10sp"
+                        android:textSize="12sp"
+                        android:layout_weight="6"
+                        android:gravity="center_horizontal"/>
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Guarantor's Home"
+                        android:textColor="@color/black"
+                        android:padding="10sp"
+                        android:textSize="12sp"
+                        android:layout_weight="6"
+                        android:gravity="center_horizontal"/>
+
+                    <TextView
+                        android:id="@+id/home_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:padding="10sp"
+                        android:textSize="12sp"
+                        android:layout_weight="6"
+                        android:gravity="center_horizontal"/>
+
+                </TableRow>
+
+            </TableLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Submit Data"
+                    android:textColor="@color/white"
+                    android:background="@drawable/priamrybtn"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="16dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/submit"
+                    app:layout_constraintEnd_toEndOf="@+id/submit"
+                    app:layout_constraintTop_toTopOf="@+id/submit" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/secondarybtn"
+                android:text="Back To List"
+                android:textColor="@color/white"
+                android:layout_margin="40dp"
+                android:textAllCaps="false"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

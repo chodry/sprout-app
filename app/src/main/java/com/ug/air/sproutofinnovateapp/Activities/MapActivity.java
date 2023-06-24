@@ -1,6 +1,9 @@
 package com.ug.air.sproutofinnovateapp.Activities;
 
 import static com.ug.air.sproutofinnovateapp.Activities.LoansActivity.SHARED_PREFS;
+import static com.ug.air.sproutofinnovateapp.Fragments.Applicant.LOCATION_1;
+import static com.ug.air.sproutofinnovateapp.Fragments.Collateral.LOCATION_2;
+import static com.ug.air.sproutofinnovateapp.Fragments.Guarantor.LOCATION_3;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +34,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.gson.Gson;
 import com.ug.air.sproutofinnovateapp.R;
 
 public class MapActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, OnMapReadyCallback {
@@ -44,12 +48,13 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
     LatLng latLng1, latLng2;
     Button btnCurrent, btnSelected;
     int value = 0;
-    String lat;
+    String lat, locate;
     public static final String GEO_POINT_1 = "geo_point";
     public static final String GEO_POINT_2 = "geo_point_2";
     public static final String GEO_POINT_3 = "geo_point_3";
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    com.ug.air.sproutofinnovateapp.Models.Location locationX;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,16 +164,44 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
 
     private void saveData() {
         if (finder.equals("Applicant's Home")){
-            editor.putString(GEO_POINT_1, lat);
+            Gson gson = new Gson();
+            locate = sharedPreferences.getString(LOCATION_1, null);
+            locationX = gson.fromJson(locate, com.ug.air.sproutofinnovateapp.Models.Location.class);
+            if (locationX != null){
+                locationX.setGeo_point(lat);
+                locate = gson.toJson(locationX);
+                editor.putString(LOCATION_1, locate);
+                editor.apply();
+            }
         }
         else if (finder.equals("Applicant's Collateral")){
-            editor.putString(GEO_POINT_2, lat);
+            Gson gson = new Gson();
+            locate = sharedPreferences.getString(LOCATION_2, null);
+            locationX = gson.fromJson(locate, com.ug.air.sproutofinnovateapp.Models.Location.class);
+            if (locationX != null){
+                locationX.setGeo_point(lat);
+                locate = gson.toJson(locationX);
+                editor.putString(LOCATION_2, locate);
+                editor.apply();
+            }
+            else {
+                Toast.makeText(this, "Please first provide the location details of the collateral", Toast.LENGTH_SHORT).show();
+            }
         }
         else {
-            editor.putString(GEO_POINT_3, lat);
+            Gson gson = new Gson();
+            locate = sharedPreferences.getString(LOCATION_3, null);
+            locationX = gson.fromJson(locate, com.ug.air.sproutofinnovateapp.Models.Location.class);
+            if (locationX != null){
+                locationX.setGeo_point(lat);
+                locate = gson.toJson(locationX);
+                editor.putString(LOCATION_3, locate);
+                editor.apply();
+            }
+            else {
+                Toast.makeText(this, "Please first provide the location details for the Guarantor", Toast.LENGTH_SHORT).show();
+            }
         }
-
-        editor.apply();
 
         startActivity(new Intent(MapActivity.this, LoanActivity.class));
     }

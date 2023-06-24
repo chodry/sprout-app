@@ -1,15 +1,19 @@
 package com.ug.air.sproutofinnovateapp.Fragments;
 
 import static com.ug.air.sproutofinnovateapp.Activities.CameraActivity.IMAGES;
+import static com.ug.air.sproutofinnovateapp.Activities.LoanActivity.DATE;
 import static com.ug.air.sproutofinnovateapp.Activities.LoansActivity.LOAN_ID;
 import static com.ug.air.sproutofinnovateapp.Activities.LoansActivity.SHARED_PREFS;
 import static com.ug.air.sproutofinnovateapp.Activities.MapActivity.GEO_POINT_1;
 import static com.ug.air.sproutofinnovateapp.Activities.MapActivity.GEO_POINT_2;
 import static com.ug.air.sproutofinnovateapp.Activities.MapActivity.GEO_POINT_3;
 import static com.ug.air.sproutofinnovateapp.Fragments.Applicant.APP_1;
+import static com.ug.air.sproutofinnovateapp.Fragments.Applicant.LOCATION_1;
 import static com.ug.air.sproutofinnovateapp.Fragments.Collateral.APP_2;
 import static com.ug.air.sproutofinnovateapp.Fragments.Collateral.LOAN;
+import static com.ug.air.sproutofinnovateapp.Fragments.Collateral.LOCATION_2;
 import static com.ug.air.sproutofinnovateapp.Fragments.Guarantor.APP_3;
+import static com.ug.air.sproutofinnovateapp.Fragments.Guarantor.LOCATION_3;
 
 import android.content.Context;
 import android.content.Intent;
@@ -35,16 +39,23 @@ import com.google.gson.reflect.TypeToken;
 import com.ug.air.sproutofinnovateapp.APIs.ApiClient;
 import com.ug.air.sproutofinnovateapp.APIs.JsonPlaceHolder;
 import com.ug.air.sproutofinnovateapp.Activities.HomeActivity;
+import com.ug.air.sproutofinnovateapp.Activities.LoanActivity;
 import com.ug.air.sproutofinnovateapp.Activities.LoansActivity;
 import com.ug.air.sproutofinnovateapp.BuildConfig;
 import com.ug.air.sproutofinnovateapp.Models.Image;
+import com.ug.air.sproutofinnovateapp.Models.Location;
 import com.ug.air.sproutofinnovateapp.R;
 import com.ug.air.sproutofinnovateapp.Utils.Token;
 
 import java.io.File;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -57,12 +68,12 @@ import retrofit2.Response;
 public class Home extends Fragment {
 
     View view;
-    Button btnApplicant, btnCollateral, btnGuarantor, btnSubmit;
+    Button btnApplicant, btnCollateral, btnGuarantor, btnSubmit, btnHome;
     ProgressBar progressBar;
     TextView home1, home2, home3;
     ImageView imageView1, imageView2, imageView3;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    SharedPreferences sharedPreferences, sharedPreferencesX;
+    SharedPreferences.Editor editor, editorX;
     String app_1, app_2, app_3, om1, om2, om3, loan_id;
     JsonPlaceHolder jsonPlaceHolder;
     List<Image> imageList = new ArrayList<>();
@@ -82,6 +93,7 @@ public class Home extends Fragment {
         btnCollateral = view.findViewById(R.id.collateral);
         btnGuarantor = view.findViewById(R.id.guarantor);
         btnSubmit = view.findViewById(R.id.submit);
+        btnHome = view.findViewById(R.id.home);
         progressBar = view.findViewById(R.id.progress_bar);
         imageView1 = view.findViewById(R.id.icon_1);
         imageView2 = view.findViewById(R.id.icon_2);
@@ -137,9 +149,9 @@ public class Home extends Fragment {
             imageView3.setVisibility(View.VISIBLE);
         }
         
-        om1 = sharedPreferences.getString(GEO_POINT_1, "");
-        om2 = sharedPreferences.getString(GEO_POINT_2, "");
-        om3 = sharedPreferences.getString(GEO_POINT_3, "");
+        om1 = loadData(LOCATION_1);
+        om2 = loadData(LOCATION_2);
+        om3 = loadData(LOCATION_3);
         home1.setText(om1);
         home2.setText(om2);
         home3.setText(om3);
@@ -148,6 +160,7 @@ public class Home extends Fragment {
             @Override
             public void onClick(View v) {
                 String collateral = sharedPreferences.getString(LOAN, "");
+
                 
                 if (app_1.isEmpty() || app_2.isEmpty() || app_3.isEmpty() || om1.isEmpty() || om3.isEmpty()) {
                     Toast.makeText(getActivity(), "Please first provide the required information", Toast.LENGTH_SHORT).show();
@@ -158,6 +171,13 @@ public class Home extends Fragment {
                 else {
                     sendData();
                 }
+            }
+        });
+
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveFile();
             }
         });
 
@@ -175,8 +195,8 @@ public class Home extends Fragment {
         imageList = gson.fromJson(images, type);
         if (imageList == null){
             Toast.makeText(getActivity(), "You forgot to take pictures", Toast.LENGTH_SHORT).show();
-            progressBar.setVisibility(View.VISIBLE);
-            btnSubmit.setEnabled(false);
+            progressBar.setVisibility(View.GONE);
+            btnSubmit.setEnabled(true);
         }
         else {
             MultipartBody.Part[] fileUpload = new MultipartBody.Part[imageList.size()];
@@ -230,5 +250,44 @@ public class Home extends Fragment {
 
     }
 
+    private void saveFile() {
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String formattedDate = df.format(currentTime);
+
+        editor.putString(DATE, formattedDate);
+        editor.apply();
+
+        loan_id = sharedPreferences.getString(LOAN_ID, "");
+
+        String filename = "loan_" + loan_id + "_sprout";
+
+        sharedPreferencesX = requireActivity().getSharedPreferences(filename, Context.MODE_PRIVATE);
+        editorX = sharedPreferencesX.edit();
+
+        Map<String, ?> all = sharedPreferences.getAll();
+        for (Map.Entry<String, ?> x : all.entrySet()) {
+            if (x.getValue().getClass().equals(String.class))  editorX.putString(x.getKey(),  (String)x.getValue());
+        }
+
+        editorX.commit();
+        editor.clear();
+        editor.commit();
+
+        startActivity(new Intent(getActivity(), LoansActivity.class));
+    }
+
+    private String loadData(String myLocation) {
+        Gson gson = new Gson();
+        String locate = sharedPreferences.getString(myLocation, null);
+        Location location = gson.fromJson(locate, Location.class);
+        String value = "";
+        if (location != null) {
+            value = location.getGeo_point();
+        }
+
+        return value;
+
+    }
 
 }

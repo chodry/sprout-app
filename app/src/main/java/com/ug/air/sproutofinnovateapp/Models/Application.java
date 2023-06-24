@@ -1,91 +1,49 @@
 package com.ug.air.sproutofinnovateapp.Models;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 public class Application {
 
-     int id;
-     String first_name;
-     String last_name;
-     int age;
-     String gender;
-     String telephone_number_1;
-     String telephone_number_2;
-     String village;
-     String subcounty;
-    String county;
-    String parish;
-     String district;
-     int amount;
-     int duration_of_payment;
-     String collateral;
-     String source_of_income;
-     String guarantor;
-     int interest;
-     String guarantor_telephone_number;
-     String guarantor_relationship;
-     String time_line;
+    int id;
+    int amount;
+    int duration_of_payment;
+    String collateral;
+    String source_of_income;
+    int income;
+    String weekly_or_monthly;
+    String guarantor;
+    int interest;
+    String guarantor_telephone_number;
+    String guarantor_relationship;
+    String time_line;
 
-    public Application(int id, String first_name, String last_name, int age, String gender, String telephone_number_1, String telephone_number_2, String village, String subcounty, String county, String parish, String district, int amount, int duration_of_payment, String collateral, String source_of_income, String guarantor, int interest, String guarantor_telephone_number, String guarantor_relationship, String time_line) {
+    @SerializedName("applicant")
+    Applicant applicant;
+
+    @SerializedName("location")
+    Location location;
+
+    public Application(int id, int amount, int duration_of_payment, String collateral, String source_of_income, int income, String weekly_or_monthly, String guarantor, int interest, String guarantor_telephone_number, String guarantor_relationship, String time_line, Applicant applicant, Location location) {
         this.id = id;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.age = age;
-        this.gender = gender;
-        this.telephone_number_1 = telephone_number_1;
-        this.telephone_number_2 = telephone_number_2;
-        this.village = village;
-        this.subcounty = subcounty;
-        this.county = county;
-        this.parish = parish;
-        this.district = district;
         this.amount = amount;
         this.duration_of_payment = duration_of_payment;
         this.collateral = collateral;
         this.source_of_income = source_of_income;
+        this.income = income;
+        this.weekly_or_monthly = weekly_or_monthly;
         this.guarantor = guarantor;
         this.interest = interest;
         this.guarantor_telephone_number = guarantor_telephone_number;
         this.guarantor_relationship = guarantor_relationship;
         this.time_line = time_line;
+        this.applicant = applicant;
+        this.location = location;
     }
 
     public int getId() {
         return id;
-    }
-
-    public String getFirst_name() {
-        return first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public String getTelephone_number_1() {
-        return telephone_number_1;
-    }
-
-    public String getTelephone_number_2() {
-        return telephone_number_2;
-    }
-
-    public String getVillage() {
-        return village;
-    }
-
-    public String getSubcounty() {
-        return subcounty;
-    }
-
-    public String getDistrict() {
-        return district;
     }
 
     public int getAmount() {
@@ -102,6 +60,14 @@ public class Application {
 
     public String getSource_of_income() {
         return source_of_income;
+    }
+
+    public int getIncome() {
+        return income;
+    }
+
+    public String getWeekly_or_monthly() {
+        return weekly_or_monthly;
     }
 
     public String getGuarantor() {
@@ -124,11 +90,12 @@ public class Application {
         return time_line;
     }
 
-    public String getCounty() {
-        return county;
+    public Applicant getApplicant() {
+        return applicant;
     }
 
-    public String getParish() {
-        return parish;
+    public Location getLocation() {
+        return location;
     }
 }
+

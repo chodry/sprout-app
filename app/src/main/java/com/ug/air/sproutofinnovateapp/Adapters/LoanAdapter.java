@@ -47,24 +47,26 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull LoanViewHolder holder, int position) {
-        String name = applicationList.get(position).getFirst_name() + " " + applicationList.get(position).getLast_name();
+        String name = applicationList.get(position).getApplicant().getFirst_name() + " " + applicationList.get(position).getApplicant().getLast_name();
         holder.name.setText(name);
-        String address = applicationList.get(position).getDistrict() + " / " + applicationList.get(position).getSubcounty() + " - " + applicationList.get(position).getVillage();
-        String tel_1 = applicationList.get(position).getTelephone_number_1();
-        String tel_2 = applicationList.get(position).getTelephone_number_2();
+        String address = applicationList.get(position).getLocation().getVillage() + "-" + applicationList.get(position).getLocation().getParish() + "-" + applicationList.get(position).getLocation().getCounty() + "-" + applicationList.get(position).getLocation().getSubcounty() + "-" + applicationList.get(position).getLocation().getDistrict();
+        String tel_1 = applicationList.get(position).getApplicant().getTelephone_number_1();
+        String tel_2 = applicationList.get(position).getApplicant().getTelephone_number_2();
         Log.d("SOIL Data", "onBindViewHolder: "+ tel_2);
 
         holder.contact.setText(tel_1 + " / " + tel_2);
 //
         holder.address.setText(address);
         holder.amount.setText(putComma(applicationList.get(position).getAmount()));
+        holder.source.setText(applicationList.get(position).getSource_of_income());
+        holder.income.setText(putComma(applicationList.get(position).getIncome()) + " " + applicationList.get(position).getWeekly_or_monthly());
 
         String duration = applicationList.get(position).getDuration_of_payment() + " " + applicationList.get(position).getTime_line();
 
         holder.duration.setText(duration);
         holder.collateral.setText(applicationList.get(position).getCollateral());
-        holder.age.setText(String.valueOf(applicationList.get(position).getAge()) + " years");
-        holder.gender.setText(applicationList.get(position).getGender());
+        holder.age.setText(String.valueOf(applicationList.get(position).getApplicant().getAge()) + " years");
+        holder.gender.setText(applicationList.get(position).getApplicant().getGender());
         holder.interest.setText(String.valueOf(applicationList.get(position).getInterest()) + "%");
         holder.next.setText(applicationList.get(position).getGuarantor());
         holder.next_relation.setText(applicationList.get(position).getGuarantor_relationship());
@@ -78,7 +80,7 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder
 
     public class LoanViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name, contact, age, gender, address, amount, duration, collateral, interest, next, next_relation, next_contact;
+        TextView name, contact, age, gender, address, source, income, amount, duration, collateral, interest, next, next_relation, next_contact;
         LinearLayout linearLayout1, linearLayout2;
         ImageView edit;
 
@@ -87,6 +89,8 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder
 
             name = itemView.findViewById(R.id.username);
             contact = itemView.findViewById(R.id.contact);
+            source = itemView.findViewById(R.id.source);
+            income = itemView.findViewById(R.id.income);
             address = itemView.findViewById(R.id.address);
             age = itemView.findViewById(R.id.age);
             gender = itemView.findViewById(R.id.gender);
